@@ -155,7 +155,7 @@ def monthly_stock_trend_complete(tickerSymbol):
 monthly_stock_trend_complete(tickerSymbol)
 
 
-st.write("\n\nHere's the complete Closing Price trend for this year: \n\n"+str(tickerSymbol))
+st.write("\n\n**Here's the complete Closing Price trend for this year: \n\n"+str(tickerSymbol)+"**")
 
 
 def yearly_stock_trend_complete(tickerSymbol):
@@ -179,7 +179,7 @@ def yearly_stock_trend_complete(tickerSymbol):
 
 yearly_stock_trend_complete(tickerSymbol)
 
-st.write("\n\nHere's the complete Closing Price trend for these  5 years: \n"+str(tickerSymbol))
+st.write("\n\n**Here's the complete Closing Price trend for these  5 years: \n"+str(tickerSymbol)+"**")
 
 
 def stock_trend_complete(tickerSymbol):
