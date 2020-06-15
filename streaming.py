@@ -138,18 +138,18 @@ def monthly_stock_trend_complete(tickerSymbol):
     try:
         for (k,v) in dic.items():
             if re.compile(s.lower()).match(v.lower()):
-                d=d.append(yf.Ticker(k).history(period='1mo',interval='1d').reset_index())
+                d=d.append(yf.Ticker(k).history(interval='1d').reset_index())
             elif re.compile(s.lower()).match(k.lower()):
-                d=d.append(yf.Ticker(k).history(period='1mo',interval='1d').reset_index())
+                d=d.append(yf.Ticker(k).history(interval='1d').reset_index())
         fig = px.line(d, x="Date", y="Close",
                       labels={'Close':'Closing Stock Price'}, 
-                      template='plotly_light',
-                     color_discrete_sequence=[ "dark blue"],
+                      template='plotly_dark',
+                     color_discrete_sequence=[ "aqua"],
                       title="Closing Stock Price for the Current Month for "+str(s)
                      )
         return st.plotly_chart(fig)
     except Exception as e: # work on python 3.x
-        st.write(str(e))  
+        st.write(str(e)) 
 
 
 monthly_stock_trend_complete(tickerSymbol)
