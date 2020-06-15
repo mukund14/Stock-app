@@ -2,7 +2,7 @@ yfinance==0.1.54
 streamlit==0.51.0
 pandas==0.25.2
 plotly-express==0.4.1
-newsapi
+newsapi-python
 numpy==1.18.0
 bs4==0.0.1
 requests==2.23.0
