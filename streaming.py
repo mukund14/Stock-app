@@ -149,7 +149,7 @@ def monthly_stock_trend_complete(tickerSymbol):
                      )
         return st.plotly_chart(fig)
     except Exception as e: # work on python 3.x
-        engine.say(str(e))  
+        st.write(str(e))  
 
 
 monthly_stock_trend_complete(tickerSymbol)
@@ -175,7 +175,7 @@ def yearly_stock_trend_complete(tickerSymbol):
                      )
         return st.plotly_chart(fig)
     except Exception as e: # work on python 3.x
-        engine.say(str(e))  
+        st.write(str(e))  
 
 yearly_stock_trend_complete(tickerSymbol)
 
@@ -199,7 +199,7 @@ def stock_trend_complete(tickerSymbol):
                      )
         return st.write(fig)
     except Exception as e: # work on python 3.x
-        engine.say(str(e))  
+        st.write(str(e))  
 
 stock_trend_complete(tickerSymbol)
 import altair as alt
