@@ -209,9 +209,6 @@ st.write("Dividends of "+str(tickerSymbol))
 st.write(tickerData.dividends.tail(3))
 st.write("Analyst Recommendations of "+str(tickerSymbol))
 st.write(tickerData.get_recommendations())
-st.write("Calendar of "+str(tickerSymbol))
-
-st.write(tickerData.calendar)
 
 st.write("Major Holders of "+str(tickerSymbol))
 
@@ -227,6 +224,7 @@ st.markdown("**"+"Related news"+"**")
 for (from_dt,to_dt) in zip(from_list,to_list):
     all_articles = newsapi.get_everything(q=str(tickerData.get_info()['longName']),language='en',sort_by='relevancy', page_size=3,page=1,   from_param=from_dt,to=to_dt)
     newdf=json_normalize(all_articles['articles'])
+    newdf.head()
     #newdf=d[["url","source.name","title","content"]]
         
     e="""   dic=newdf.set_index(["source.name","title","content"])["url"].to_dict()
