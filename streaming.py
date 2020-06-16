@@ -113,7 +113,7 @@ st.write("""
 def tick():
     user_input = st.text_input("Enter stock symbol:", 'AAPL')
     
-    return user_input
+    return user_input.upper()
 
 tickerSymbol = str(tick())
 #get data on this ticker
@@ -128,7 +128,7 @@ newd={}
 new=tickerSymbol
 
 
-st.write("**"+"Current Stock Price of "+str(tickerSymbol)+" is: "+str(np.round(si.get_live_price(tickerSymbol.lower(),2))+"**"))
+st.write("**"+"Current Stock Price of "+str(tickerSymbol)+" is: "+str(np.round(si.get_live_price(tickerSymbol,2))+"**"))
 st.write("**"+"Here's the complete Closing Price trend for this month: "+"**"+str(tickerSymbol))
 
 def monthly_stock_trend_complete(tickerSymbol):
