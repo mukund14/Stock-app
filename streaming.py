@@ -85,7 +85,7 @@ def make_clickable(link):
 def text_from_urls(query):
     newd={}
     for (from_dt,to_dt) in zip(from_list,to_list):
-        all_articles = newsapi.get_everything(q=query,language='en',sort_by='relevancy', page_size=1,page=1,   from_param=from_dt,to=to_dt)
+        all_articles = newsapi.get_everything(q=query,language='en',sort_by='relevancy', page_size=3,page=1,   from_param=from_dt,to=to_dt)
         d=json_normalize(all_articles['articles'])
         newdf=d[["url","source.name","title","content"]]
         
@@ -128,8 +128,8 @@ newd={}
 new=tickerSymbol
 
 
-st.write("**"+"Current Stock Price of "+str(tickerSymbol)+" is: "+str(np.round(si.get_live_price(tickerSymbol),2))+"**")
-st.write("**"+"Here's the complete Closing Price trend for this month: "+"**"+str(tickerSymbol))
+st.write("**"+"Current Stock Price of "+str(tickerData.get_info()['longName'])+" is: "+str(np.round(si.get_live_price(tickerSymbol),2))+"**")
+st.write("**"+"Here's the complete Closing Price trend for this month: "+"**"+str(tickerData.get_info()['longName']))
 
 def monthly_stock_trend_complete(tickerSymbol):
     s=tickerSymbol
@@ -144,7 +144,7 @@ def monthly_stock_trend_complete(tickerSymbol):
                       labels={'Close':'Closing Stock Price'}, 
                       template='plotly_dark',
                      color_discrete_sequence=[ "aqua"],
-                      title="Closing Stock Price for the Current Month for "+str(s)
+                      title="Closing Stock Price for the Current Month for "+str(tickerData.get_info()['longName'])
                      )
         return st.plotly_chart(fig)
     except Exception as e: # work on python 3.x
@@ -154,7 +154,7 @@ def monthly_stock_trend_complete(tickerSymbol):
 monthly_stock_trend_complete(tickerSymbol)
 
 
-st.write("\n\n**Here's the complete Closing Price trend for this year: \n\n"+str(tickerSymbol)+"**")
+st.write("\n\n**Here's the complete Closing Price trend for this year: \n\n"+"**"+str(tickerData.get_info()['longName']))
 
 
 def yearly_stock_trend_complete(tickerSymbol):
@@ -170,7 +170,7 @@ def yearly_stock_trend_complete(tickerSymbol):
                       labels={'Close':'Closing Stock Price'}, 
                       template='plotly_dark',
                      color_discrete_sequence=[ "aqua"],
-                      title="Closing Stock Price for the Current Year for "+str(s)
+                      title="Closing Stock Price for the Current Year for "+str(tickerData.get_info()['longName'])
                      )
         return st.plotly_chart(fig)
     except Exception as e: # work on python 3.x
@@ -178,7 +178,7 @@ def yearly_stock_trend_complete(tickerSymbol):
 
 yearly_stock_trend_complete(tickerSymbol)
 
-st.write("\n\n**Here's the complete Closing Price trend for these  5 years: \n"+str(tickerSymbol)+"**")
+st.write("\n\n**Here's the complete Closing Price trend for these  5 years: \n"+str(tickerData.get_info()['longName'])+"**")
 
 
 def stock_trend_complete(tickerSymbol):
@@ -194,7 +194,7 @@ def stock_trend_complete(tickerSymbol):
                       labels={'Close':'Closing Stock Price'}, 
                       template='plotly_dark',
                      color_discrete_sequence=[ "aqua"],
-                      title="Closing Stock Price for the Last 5 years for "+str(s)
+                      title="Closing Stock Price for the Last 5 years for "+str(tickerData.get_info()['longName'])
                      )
         return st.write(fig)
     except Exception as e: # work on python 3.x
@@ -204,17 +204,17 @@ stock_trend_complete(tickerSymbol)
 import altair as alt
 #c = alt.Chart(df).mark_circle()
 
-st.write("Dividends of "+str(tickerSymbol))
+st.write("Dividends of "+str(tickerData.get_info()['longName']))
 
 st.write(tickerData.dividends.tail(3))
-st.write("Analyst Recommendations of "+str(tickerSymbol))
+st.write("Analyst Recommendations of "+str(tickerData.get_info()['longName']))
 st.write(tickerData.get_recommendations())
 
-st.write("Major Holders of "+str(tickerSymbol))
+st.write("Major Holders of "+str(tickerData.get_info()['longName']))
 
 st.write(tickerData.major_holders)
 
-st.write("Actions of "+str(tickerSymbol))
+st.write("Actions of "+str(tickerData.get_info()['longName']))
 
 
 st.write(tickerData.actions)
