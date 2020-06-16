@@ -214,10 +214,6 @@ st.write("Major Holders of "+str(tickerData.get_info()['longName']))
 
 st.write(tickerData.major_holders)
 
-st.write("Actions of "+str(tickerData.get_info()['longName']))
-
-
-st.write(tickerData.actions)
 
 
 st.markdown("**"+"Related news"+"**")
