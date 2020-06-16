@@ -253,7 +253,7 @@ for (from_dt,to_dt) in zip(from_list,to_list):
 #st.write(text_from_urls(new))
 
 #get the historical prices for this ticker
-tickerDf = tickerData.history(period='1d', start='2010-5-31', end='2020-5-31')
+#tickerDf = tickerData.history(period='1d', start='2010-5-31', end='2020-5-31')
 # Open	High	Low	Close	Volume	Dividends	Stock Splits
 
 
