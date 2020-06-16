@@ -128,7 +128,7 @@ newd={}
 new=tickerSymbol
 
 
-st.write("**"+"Current Stock Price of "+str(tickerSymbol)+" is: "+str(np.round(si.get_live_price(tickerSymbol),2))+"**")
+st.write("**"+"Current Stock Price of "+str(tickerSymbol)+" is: "+str(np.round(si.get_live_price(tickerSymbol.lower(),2))+"**")
 
 st.write("**"+"Here's the complete Closing Price trend for this month: "+"**"+str(tickerSymbol))
 
@@ -207,7 +207,7 @@ import altair as alt
 
 st.write("Dividends of "+str(tickerSymbol))
 
-st.write(tickerData.dividends)
+st.write(tickerData.dividends.tail(3))
 st.write("Analyst Recommendations of "+str(tickerSymbol))
 st.write(tickerData.get_recommendations())
 st.write("Calendar of "+str(tickerSymbol))
