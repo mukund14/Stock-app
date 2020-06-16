@@ -240,9 +240,9 @@ for (from_dt,to_dt) in zip(from_list,to_list):
     
     st.write(newdf['content'].values[1]+"\n\n"+"You can find more about it here: "+newdf['url'].values[1]+"\n")
     
-    st.write("***"+""+newdf['title'].values[2]+"***")
+    st.write("***"+"3] "+newdf['title'].values[2]+"***")
     
-    st.write("3] "+newdf['content'].values[2]+"\n\n"+"You can find more about it here: "+newdf['url'].values[2]+"\n")
+    st.write(newdf['content'].values[2]+"\n\n"+"You can find more about it here: "+newdf['url'].values[2]+"\n")
 
 #st.write(text_from_urls(new))
 
