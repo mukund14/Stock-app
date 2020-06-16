@@ -226,8 +226,8 @@ st.write(tickerData.actions)
 st.markdown("**"+"Related news"+"**")
 for (from_dt,to_dt) in zip(from_list,to_list):
     all_articles = newsapi.get_everything(q=str(tickerData.get_info()['longName']),language='en',sort_by='relevancy', page_size=3,page=1,   from_param=from_dt,to=to_dt)
-    d=json_normalize(all_articles['articles'])
-    newdf=d[["url","source.name","title","content"]]
+    newdf=json_normalize(all_articles['articles'])
+    #newdf=d[["url","source.name","title","content"]]
         
     e="""   dic=newdf.set_index(["source.name","title","content"])["url"].to_dict()
         #print(dic)
