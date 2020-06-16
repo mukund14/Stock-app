@@ -85,7 +85,7 @@ def make_clickable(link):
 def text_from_urls(query):
     newd={}
     for (from_dt,to_dt) in zip(from_list,to_list):
-        all_articles = newsapi.get_everything(q=query,language='en',sort_by='relevancy', page_size=3,page=1,   from_param=from_dt,to=to_dt)
+        all_articles = newsapi.get_everything(q=query,language='en',sort_by='relevancy', page_size=1,page=1,   from_param=from_dt,to=to_dt)
         d=json_normalize(all_articles['articles'])
         newdf=d[["url","source.name","title","content"]]
         
@@ -219,10 +219,9 @@ st.write(tickerData.major_holders)
 st.markdown("**"+"Related news"+"**")
 for (from_dt,to_dt) in zip(from_list,to_list):
     all_articles = newsapi.get_everything(q=str(tickerData.get_info()['longName']),language='en',sort_by='relevancy', page_size=3,page=1,   from_param=from_dt,to=to_dt)
-    newdf=json_normalize(all_articles['articles'])
-    newdf.head()
-    #newdf=d[["url","source.name","title","content"]]
-        
+    d=json_normalize(all_articles['articles'])
+    newdf=d[["url","source.name","title","content"]]
+       
     e="""   dic=newdf.set_index(["source.name","title","content"])["url"].to_dict()
         #print(dic)
         for (k,v) in dic.items():
@@ -235,11 +234,12 @@ for (from_dt,to_dt) in zip(from_list,to_list):
             #for a in d2:
             newd[k]=re.sub(r'<.+?>',r'',str(d2)) """
 
-    st.write("***"+""+newdf['title'].values[0]+"***")
-    st.write("1] "+newdf['content'].values[0]+"\n\n"+"You can find more about it here: "+newdf['url'].values[0]+"\n")
-    st.write("***"+""+newdf['title'].values[1]+"***")
+    st.write("***"+"1] "+newdf['title'].values[0]+"***")
+    st.write(newdf['content'].values[0]+"\n\n"+"You can find more about it here: "+newdf['url'].values[0]+"\n")
+    st.write("***"+"2] "+newdf['title'].values[1]+"***")
     
-    st.write("2] "+newdf['content'].values[1]+"\n\n"+"You can find more about it here: "+newdf['url'].values[1]+"\n")
+    st.write(newdf['content'].values[1]+"\n\n"+"You can find more about it here: "+newdf['url'].values[1]+"\n")
+    
     st.write("***"+""+newdf['title'].values[2]+"***")
     
     st.write("3] "+newdf['content'].values[2]+"\n\n"+"You can find more about it here: "+newdf['url'].values[2]+"\n")
