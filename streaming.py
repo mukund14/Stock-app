@@ -181,8 +181,7 @@ def stock_trend_complete(tickerSymbol):
                      color_discrete_sequence=[ "aqua"],
                       title="Closing Stock Price for the Last 5 years for "+str(tickerData.get_info()['longName']))
     return st.write(fig)
-    except Exception as e: # work on python 3.x
-        st.write(str(e))  
+
 
 stock_trend_complete(tickerSymbol)
 import altair as alt
