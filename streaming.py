@@ -154,7 +154,7 @@ def monthly_stock_trend_complete(tickerSymbol):
 monthly_stock_trend_complete(tickerSymbol)
 
 
-st.write("\n\n**Here's the complete Closing Price trend for this year: \n\n"+"**"+str(tickerData.get_info()['longName']))
+st.write("**Here's the complete Closing Price trend for this year: "+"**"+str(tickerData.get_info()['longName']))
 
 
 def yearly_stock_trend_complete(tickerSymbol):
@@ -166,10 +166,15 @@ def yearly_stock_trend_complete(tickerSymbol):
                 d=d.append(yf.Ticker(k).history(period='1y',interval='1d').reset_index())
             elif re.compile(s.lower()).match(k.lower()):
                 d=d.append(yf.Ticker(k).history(period='1y',interval='1d').reset_index())
+        d=d.reset_index()
+        d['months'] = pd.DatetimeIndex(d['Date']).month
+        d['years'] = pd.DatetimeIndex(d['Date']).year
+        d['months']=d['months'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
+
         fig = px.line(d, x="Date", y="Close",
                       labels={'Close':'Closing Stock Price'}, 
                       template='plotly_dark',
-                     color_discrete_sequence=[ "aqua"],
+                     color_discrete_sequence=[ "aqua"],animation_frame=d.months,
                       title="Closing Stock Price for the Current Year for "+str(tickerData.get_info()['longName'])
                      )
         return st.plotly_chart(fig)
@@ -205,8 +210,9 @@ import altair as alt
 #c = alt.Chart(df).mark_circle()
 
 st.write("Dividends of "+str(tickerData.get_info()['longName']))
+df=tickerData.dividends.reset_index()
 
-st.write(tickerData.dividends.tail(3))
+st.write(df.sort_values(by='Date',ascending=False).head(3))
 st.write("Analyst Recommendations of "+str(tickerData.get_info()['longName']))
 st.write(tickerData.get_recommendations())
 
