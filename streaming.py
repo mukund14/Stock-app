@@ -132,23 +132,16 @@ st.write("**"+"Current Stock Price of "+str(tickerData.get_info()['longName'])+"
 st.write("**"+"Here's the complete Closing Price trend for this month: "+"**"+str(tickerData.get_info()['longName']))
 
 def monthly_stock_trend_complete(tickerSymbol):
-    s=tickerSymbol
     d=pd.DataFrame()
-    try:
-        for (k,v) in dic.items():
-            if re.compile(s.lower()).match(v.lower()):
-                d=d.append(yf.Ticker(k).history(interval='1d').reset_index())
-            elif re.compile(s.lower()).match(k.lower()):
-                d=d.append(yf.Ticker(k).history(interval='1d').reset_index())
-        fig = px.line(d, x="Date", y="Close",
+    d=d.append(yf.Ticker(tickerSymbol).history(interval='1d').reset_index())
+    fig = px.line(d, x="Date", y="Close",
                       labels={'Close':'Closing Stock Price'}, 
                       template='plotly_dark',
                      color_discrete_sequence=[ "aqua"],
                       title="Closing Stock Price for the Current Month for "+str(tickerData.get_info()['longName'])
                      )
-        return st.plotly_chart(fig)
-    except Exception as e: # work on python 3.x
-        st.write(str(e)) 
+    return st.plotly_chart(fig)
+
 
 
 monthly_stock_trend_complete(tickerSymbol)
@@ -158,28 +151,21 @@ st.write("**Here's the complete Closing Price trend for this year: "+"**"+str(ti
 
 
 def yearly_stock_trend_complete(tickerSymbol):
-    s=tickerSymbol
     d=pd.DataFrame()
-    try:
-        for (k,v) in dic.items():
-            if re.compile(s.lower()).match(v.lower()):
-                d=d.append(yf.Ticker(k).history(period='1y',interval='1d').reset_index())
-            elif re.compile(s.lower()).match(k.lower()):
-                d=d.append(yf.Ticker(k).history(period='1y',interval='1d').reset_index())
-        d=d.reset_index()
-        d['months'] = pd.DatetimeIndex(d['Date']).month
-        d['years'] = pd.DatetimeIndex(d['Date']).year
-        d['months']=d['months'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
+    d=d.append(yf.Ticker(tickerSymbol).history(period='1y',interval='1d').reset_index())
+    d=d.reset_index()
+    d['months'] = pd.DatetimeIndex(d['Date']).month
+    d['years'] = pd.DatetimeIndex(d['Date']).year
+    d['months']=d['months'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
 
-        fig = px.line(d, x="Date", y="Close",
+    fig = px.line(d, x="Date", y="Close",
                       labels={'Close':'Closing Stock Price'}, 
                       template='plotly_dark',
                      color_discrete_sequence=[ "aqua"],animation_frame=d.months,
                       title="Closing Stock Price for the Current Year for "+str(tickerData.get_info()['longName'])
                      )
-        return st.plotly_chart(fig)
-    except Exception as e: # work on python 3.x
-        st.write(str(e))  
+    return st.plotly_chart(fig)
+
 
 yearly_stock_trend_complete(tickerSymbol)
 
@@ -187,21 +173,14 @@ st.write("\n\n**Here's the complete Closing Price trend for these  5 years: \n"+
 
 
 def stock_trend_complete(tickerSymbol):
-    s=tickerSymbol
     d=pd.DataFrame()
-    try:
-        for (k,v) in dic.items():
-            if re.compile(s.lower()).match(v.lower()):
-                d=d.append(yf.Ticker(k).history(period='5y',interval='1d').reset_index())
-            elif re.compile(s.lower()).match(k.lower()):
-                d=d.append(yf.Ticker(k).history(period='5y',interval='1d').reset_index())
-        fig = px.line(d, x="Date", y="Close",
+    d=d.append(yf.Ticker(tickerSymbol).history(period='5y',interval='1d').reset_index())
+    fig = px.line(d, x="Date", y="Close",
                       labels={'Close':'Closing Stock Price'}, 
                       template='plotly_dark',
                      color_discrete_sequence=[ "aqua"],
-                      title="Closing Stock Price for the Last 5 years for "+str(tickerData.get_info()['longName'])
-                     )
-        return st.write(fig)
+                      title="Closing Stock Price for the Last 5 years for "+str(tickerData.get_info()['longName']))
+    return st.write(fig)
     except Exception as e: # work on python 3.x
         st.write(str(e))  
 
