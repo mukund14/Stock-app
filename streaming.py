@@ -190,7 +190,24 @@ import altair as alt
 st.write("Dividends of "+str(tickerData.get_info()['longName']))
 df=tickerData.dividends.reset_index()
 
-st.write(df.sort_values(by='Date',ascending=False).head(3))
+
+df1=tickerData.get_recommendations().reset_index()
+df2=df1[df1['Date']>'2020-01-01']
+df2['dates'] = pd.DatetimeIndex(df2['Date']).month
+df2['dates']=df2['dates'].map({1:'January','2':'February',3:'March',4:'April',5:'May',6:'June'})
+d4=pd.DataFrame(df2.groupby(['dates','To Grade'])['Firm'].count())
+d4=d4.reset_index()
+
+d4.rename(columns={'dates':'Month',
+                          'To Grade':'verdict',
+                          'Firm':'count'}, 
+                 inplace=True)
+fig=px.bar(d4,x='Month',y='count',color='verdict',animation_frame='verdict',template='plotly_dark',labels={'count':'Number of Analysts who think you should do this'},barmode='relative',text='count',title="Number of Analysts Recommendations by Recommendation Type in the Current Year ")
+fig.update_layout(transition = {'duration': 80000})
+
+
+
+st.plotly_chart(fig)
 st.write("Analyst Recommendations of "+str(tickerData.get_info()['longName']))
 st.write(tickerData.get_recommendations())
 
