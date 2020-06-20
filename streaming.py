@@ -187,23 +187,27 @@ stock_trend_complete(tickerSymbol)
 import altair as alt
 #c = alt.Chart(df).mark_circle()
 
-st.write("Dividends of "+str(tickerData.get_info()['longName']))
+#st.write("Dividends of "+str(tickerData.get_info()['longName']))
 df=tickerData.dividends.reset_index()
 
 
-df1=tickerData.get_recommendations().reset_index()
-df2=df1[df1['Date']>'2020-01-01']
-df2['dates'] = pd.DatetimeIndex(df2['Date']).month
-df2['dates']=df2['dates'].map({1:'January','2':'February',3:'March',4:'April',5:'May',6:'June'})
-d4=pd.DataFrame(df2.groupby(['dates','To Grade'])['Firm'].count())
+df2=tickerData.get_recommendations().reset_index()
+
+df2['month'] = pd.DatetimeIndex(df2['Date']).month
+df2['year'] = pd.DatetimeIndex(df2['Date']).year
+
+df2['month']=df2['month'].map({1:'January','2':'February',3:'March',4:'April',5:'May',6:'June'})
+d4=pd.DataFrame(df2.groupby(['year','month','To Grade'])['Firm'].count())
 d4=d4.reset_index()
 
-d4.rename(columns={'dates':'Month',
+d4.rename(columns={
                           'To Grade':'verdict',
                           'Firm':'count'}, 
                  inplace=True)
-fig=px.bar(d4,x='Month',y='count',color='verdict',animation_frame='verdict',template='plotly_dark',labels={'count':'Number of Analysts who think you should do this'},barmode='relative',text='count',title="Number of Analysts Recommendations by Recommendation Type in the Current Year ")
-fig.update_layout(transition = {'duration': 80000})
+
+fig=px.bar(d4,x='month',y='count',color='verdict',animation_frame='year',template='plotly_dark',labels={'count':'Number of Analysts who think you should do this'},barmode='relative',text='count',title="Number of Analysts Recommendations by Recommendation Type in the Current Year ")
+fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
+
 
 
 
