@@ -216,7 +216,7 @@ for (k,v) in stocks_dic.items():
 
         fig=px.bar(d4,x='month',y='count',color='verdict',animation_frame='year',template='plotly_dark',labels={'count':'Number of Analysts who think you should do this'},barmode='relative',text='count',title="Number of Analysts Recommendations by Recommendation Type in the Current Year ")
         fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
-
+        fig.update_yaxes(automargin=True)
 
 
 
@@ -232,7 +232,7 @@ for (k,v) in stocks_dic.items():
 
         st.markdown("**"+"Related news"+"**")
         for (from_dt,to_dt) in zip(from_list,to_list):
-            all_articles = newsapi.get_everything(q=tickerSymbol,language='en',sort_by='relevancy', page_size=3,page=1,   from_param=from_dt,to=to_dt)
+            all_articles = newsapi.get_everything(q=tickerData,language='en',sort_by='relevancy', page_size=3,page=1,   from_param=from_dt,to=to_dt)
             d=json_normalize(all_articles['articles'])
             newdf=d[["url","source.name","title","content"]]
                
