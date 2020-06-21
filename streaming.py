@@ -126,17 +126,7 @@ tickerSymbol = str(tick())
 #get data on this ticker
 for (k,v) in stocks_dic.items():
     if (tickerSymbol==k) or (fuzz.partial_ratio(tickerSymbol,v)>90):
-        tickerData = yf.Ticker(tickerSymbol)
-
-
-        newd={}
-            
-            #st.write(text_from_urls(tickerData.get_info()['longName']).to_html(escape=False, index=False), unsafe_allow_html=True)
-
-        #dic=func(tickerData.get_info()['longName'])
-        new=tickerSymbol
-
-
+        tickerData = yf.Ticker(k)
         st.write("**"+"Current Stock Price of "+str(tickerData.get_info()['longName'])+" is: "+str(np.round(si.get_live_price(tickerSymbol),2))+"**")
         st.write("**"+"Here's the complete Closing Price trend for this month: "+"**"+str(tickerData.get_info()['longName']))
 
@@ -170,7 +160,7 @@ for (k,v) in stocks_dic.items():
             fig = px.line(d, x="Date", y="Close",
                               labels={'Close':'Closing Stock Price'}, 
                               template='plotly_dark',
-                             color_discrete_sequence=[ "aqua"],animation_frame=d.months,
+                             color_discrete_sequence=[ "aqua"],
                               title="Closing Stock Price for the Current Year for "+str(tickerData.get_info()['longName'])
                              )
             return st.plotly_chart(fig)
@@ -205,8 +195,8 @@ for (k,v) in stocks_dic.items():
         df2['month'] = pd.DatetimeIndex(df2['Date']).month
         df2['year'] = pd.DatetimeIndex(df2['Date']).year
 
-        df2['month']=df2['month'].map({1:'January','2':'February',3:'March',4:'April',5:'May',6:'June'})
-        d4=pd.DataFrame(df2.groupby(['year','month','To Grade'])['Firm'].count())
+        df2['months']=df2['months'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
+d4=pd.DataFrame(df2.groupby(['year','month','To Grade'])['Firm'].count())
         d4=d4.reset_index()
 
         d4.rename(columns={
@@ -221,9 +211,7 @@ for (k,v) in stocks_dic.items():
 
 
         st.plotly_chart(fig)
-        st.write("Analyst Recommendations of "+str(tickerData.get_info()['longName']))
-        st.write(tickerData.get_recommendations())
-
+        
         st.write("Major Holders of "+str(tickerData.get_info()['longName']))
 
         st.write(tickerData.major_holders)
@@ -235,19 +223,6 @@ for (k,v) in stocks_dic.items():
             all_articles = newsapi.get_everything(q=tickerData,language='en',sort_by='relevancy', page_size=3,page=1,   from_param=from_dt,to=to_dt)
             d=json_normalize(all_articles['articles'])
             newdf=d[["url","source.name","title","content"]]
-               
-            e="""   dic=newdf.set_index(["source.name","title","content"])["url"].to_dict()
-                #print(dic)
-                for (k,v) in dic.items():
-                    #print(str(k[0])+str(k[1][5:10]))
-                    page = requests.get(v)
-                    html = page.content
-                    soup = BeautifulSoup(html, "lxml")
-                    text = soup.get_text()
-                    d2=soup.find_all("p")
-                    #for a in d2:
-                    newd[k]=re.sub(r'<.+?>',r'',str(d2)) """
-
             st.write("***"+"1] "+newdf['title'].values[0]+"***")
             st.write(newdf['content'].values[0]+"\n\n"+"You can find more about it here: "+newdf['url'].values[0]+"\n")
             st.write("***"+"2] "+newdf['title'].values[1]+"***")
@@ -256,13 +231,7 @@ for (k,v) in stocks_dic.items():
             
             st.write("***"+"3] "+newdf['title'].values[2]+"***")
             st.write(str(newdf['content'].values[2])+"\n\n"+"You can find more about it here: "+str(newdf['url'].values[2])+"\n")
-            
 
-        #st.write(text_from_urls(new))
-
-        #get the historical prices for this ticker
-        #tickerDf = tickerData.history(period='1d', start='2010-5-31', end='2020-5-31')
-        # Open	High	Low	Close	Volume	Dividends	Stock Splits
     else:
         print("Enter the stock symbol")
 
