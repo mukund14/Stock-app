@@ -125,7 +125,7 @@ stocks_dic=us_stocks.set_index('Symbol')['Security Name'].to_dict()
 tickerSymbol = str(st.text_input("Enter stock symbol:", 'AAPL'))
 #get data on this ticker
 for (k,v) in stocks_dic.items():
-    if (tickerSymbol==k):
+    if (tickerSymbol.upper()==k):
         tickerData = yf.Ticker(k)
         
         st.write("**"+"Current Stock Price of "+str(tickerData.get_info()['longName'])+" is: "+str(np.round(si.get_live_price(tickerSymbol),2))+"**")
