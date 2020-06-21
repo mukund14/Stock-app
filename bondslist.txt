@@ -1,0 +1,68 @@
+Symbol|Security Name|Financial Status
+AAPL22|Apple Inc. Senior Notes Due 2022|N
+AAPL24|Apple Inc. Senior Notes Due 2024|N
+AAPL25|Apple Inc. Senior Notes Due 2025|N
+AAPL25A|Apple Inc. 0.000% Notes due 2025|N
+AAPL26|Apple Inc. Senior Notes Due 2026|N
+AAPL27|Apple Inc. Senior Notes Due 2017|N
+AAPL29|Apple Inc. Senior Notes 2029|N
+AAPL29A|Apple Inc. Senior Notes Due 29 1.375|N
+AAPL31|Apple Inc. 0.500% Notes due 2031|N
+AAPL42|Apple Inc. Senior Notes Due 2042|N
+BKNG22|Booking Holdings Inc. Senior Notes due 2022|N
+BKNG22A|Booking Holdings Inc. Senior Notes Due 2022|N
+BKNG24|Booking Holdings Inc. Senior Notes due 2024|N
+BKNG27|Booking Holdings Inc. Senior Notes due 2027|N
+CMCS27|Comcast Corporation Euro Notes due 2027|N
+CMCS29|Comcast Corporation 1.5 Sterling Notes due 2029|N
+CMCS32|Comcast Corporation 0.75 Euro Notes due 2032|N
+CMCS36|Comcast Corporation 1.875 Sterling Notes due 2036|N
+CMCS40|Comcast Corporation 1.25 Euro Notes due 2040|N
+CONE27|CyrusOne Inc 1.450% Senior Notes due 2027|N
+EEFT26|Euronet Worldwide, Inc. 1.375% Senior Notes due 2026|N
+FISV23|Fiserv, Inc. 0.375% Senior Notes due 2023|N
+FISV25|Fiserv, Inc. 2.250% Senior Notes due 2025|N
+FISV27|Fiserv, Inc. 1.125% Senior Notes due 2027|N
+FISV30|Fiserv, Inc. 1.625% Senior Notes due 2030|N
+FISV31|Fiserv, Inc. 3.000% Senior Notes due 2031|N
+MDLZ21|Mondelez International, Inc. 2.375% Notes due 2021|N
+MDLZ22|Mondelez International, Inc. 1.000% Notes due 2022|N
+MDLZ23|Mondelez International, Inc. 1.625% Notes due 2023|N
+MDLZ27|Mondelez International, Inc. 1.625% Notes due 2027|N
+MDLZ35|Mondelez International, Inc. 2.375% Notes due 2035|N
+MDLZ35A|Mondelez International, Inc. 4.500% Notes due 2035|N
+MDLZ45|Mondelez International, Inc. 3.875% Notes due 2045|N
+MSFT21|Microsoft Corporation 2.125% Notes due 2021|N
+MSFT28|Microsoft Corporation 3.125% Notes due 2028|N
+MSFT33|Microsoft Corporation 2.625% Notes due 2033|N
+NDAQ23|Nasdaq, Inc. Senior Notes due 2023|N
+NDAQ29|Nasdaq, Inc. Senior Notes Due 2029|N
+NDAQ30|Nasdaq, Inc. 0.875% Notes due 2030|N
+PEP21A|PepsiCo, Inc. Senior Notes Due 2021|N
+PEP22A|PepsiCo, Inc. Senior Notes Due 2022|N
+PEP24|PepsiCo, Inc. 0.250% Senior Notes due 2024|N
+PEP26|PepsiCo, Inc. Senior Notes Due 2026|N
+PEP27|PepsiCo, Inc. Senior Notes 2027|N
+PEP28|PepsiCo, Inc. Senior Notes Due 2028|N
+PEP28A|PepsiCo, Inc. 0.500% Senior Notes due 2028|N
+PEP31|PepsiCo, Inc. Senior Notes 2031|N
+PEP39|PepsiCo, Inc. Senior Notes due 2039|N
+VOD22|Vodafone Group Plc 2.500% Notes due September 2022|N
+VOD23|Vodafone Group Plc 2.950% Notes due February 2023|N
+VOD24|Vodafone Group Plc 3.750% Notes due January 2024|N
+VOD24A|Vodafone Group Plc Floating Rate Notes due January 2024|N
+VOD25|Vodafone Group Plc 4.125% Notes due May 2025|N
+VOD28|Vodafone Group Plc 4.375% Notes due May 2028|N
+VOD32|Vodafone Group Plc 6.250% Notes due November 2032|N
+VOD37|Vodafone Group Plc 6.150% Notes due February 2037|N
+VOD38|Vodafone Group Plc 5.000% Notes due May 2038|N
+VOD43|Vodafone Group Plc 4.375% Notes due February 2043|N
+VOD48|Vodafone Group Plc 5.25% Notes due May 2048|N
+VOD49|Vodafone Group Plc 4.875% Notes due June 2049|N
+VOD50|Vodafone Group Plc 4.25% Notes due September 2050|N
+VOD59|Vodafone Group Plc 5.125%Notes due June 2059|N
+VOD79|Vodafone Group Plc Capital Securities due April 2079|N
+WBA20|Walgreens Boots Alliance, Inc. 2.875% Notes due 2020|N
+WBA25|Walgreens Boots Alliance, Inc. 3.600% Notes due 2025|N
+WBA26|Walgreens Boots Alliance, Inc. 2.125% Notes due 2026|N
+File Creation Time: 0619202021:32|||||

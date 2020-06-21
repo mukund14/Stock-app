@@ -107,8 +107,14 @@ st.write("""
 # Stock shop
 """)
 
+nasdaq=pd.read_csv('C:/Users/mukun/python nbs/strm/strming/nasdaqlisted.txt',sep='|')
+nasdaq.head(3)
+nasdaq=nasdaq[['Symbol','Security Name']]
+other=pd.read_csv('C:/Users/mukun/python nbs/strm/strming/otherlisted.txt',sep='|')
+other=other[['ACT Symbol','Security Name']]
+other=other.rename(columns={'ACT Symbol': 'Symbol'})
+us_stocks=nasdaq.append(other)
 
-#x = st.slider('x')  #  this is a widget
 
 def tick():
     user_input = st.text_input("Enter stock symbol:", 'AAPL')
@@ -117,143 +123,147 @@ def tick():
 
 tickerSymbol = str(tick())
 #get data on this ticker
-tickerData = yf.Ticker(tickerSymbol)
+if (tickerSymbol==us_stocks['Symbol']) or (tickerSymbol==us_stocks['Security Name']):
+    tickerData = yf.Ticker(tickerSymbol)
 
 
-newd={}
-    
-    #st.write(text_from_urls(tickerData.get_info()['longName']).to_html(escape=False, index=False), unsafe_allow_html=True)
+    newd={}
+        
+        #st.write(text_from_urls(tickerData.get_info()['longName']).to_html(escape=False, index=False), unsafe_allow_html=True)
 
-#dic=func(tickerData.get_info()['longName'])
-new=tickerSymbol
-
-
-st.write("**"+"Current Stock Price of "+str(tickerData.get_info()['longName'])+" is: "+str(np.round(si.get_live_price(tickerSymbol),2))+"**")
-st.write("**"+"Here's the complete Closing Price trend for this month: "+"**"+str(tickerData.get_info()['longName']))
-
-def monthly_stock_trend_complete(tickerSymbol):
-    d=pd.DataFrame()
-    d=d.append(yf.Ticker(tickerSymbol).history(interval='1d').reset_index())
-    fig = px.line(d, x="Date", y="Close",
-                      labels={'Close':'Closing Stock Price'}, 
-                      template='plotly_dark',
-                     color_discrete_sequence=[ "aqua"],
-                      title="Closing Stock Price for the Current Month for "+str(tickerData.get_info()['longName'])
-                     )
-    return st.plotly_chart(fig)
+    #dic=func(tickerData.get_info()['longName'])
+    new=tickerSymbol
 
 
+    st.write("**"+"Current Stock Price of "+str(tickerData.get_info()['longName'])+" is: "+str(np.round(si.get_live_price(tickerSymbol),2))+"**")
+    st.write("**"+"Here's the complete Closing Price trend for this month: "+"**"+str(tickerData.get_info()['longName']))
 
-monthly_stock_trend_complete(tickerSymbol)
-
-
-st.write("**Here's the complete Closing Price trend for this year: "+"**"+str(tickerData.get_info()['longName']))
-
-
-def yearly_stock_trend_complete(tickerSymbol):
-    d=pd.DataFrame()
-    d=d.append(yf.Ticker(tickerSymbol).history(period='1y',interval='1d').reset_index())
-    d=d.reset_index()
-    d['months'] = pd.DatetimeIndex(d['Date']).month
-    d['years'] = pd.DatetimeIndex(d['Date']).year
-    d['months']=d['months'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
-
-    fig = px.line(d, x="Date", y="Close",
-                      labels={'Close':'Closing Stock Price'}, 
-                      template='plotly_dark',
-                     color_discrete_sequence=[ "aqua"],animation_frame=d.months,
-                      title="Closing Stock Price for the Current Year for "+str(tickerData.get_info()['longName'])
-                     )
-    return st.plotly_chart(fig)
-
-
-yearly_stock_trend_complete(tickerSymbol)
-
-st.write("\n\n**Here's the complete Closing Price trend for these  5 years: \n"+str(tickerData.get_info()['longName'])+"**")
-
-
-def stock_trend_complete(tickerSymbol):
-    d=pd.DataFrame()
-    d=d.append(yf.Ticker(tickerSymbol).history(period='5y',interval='1d').reset_index())
-    fig = px.line(d, x="Date", y="Close",
-                      labels={'Close':'Closing Stock Price'}, 
-                      template='plotly_dark',
-                     color_discrete_sequence=[ "aqua"],
-                      title="Closing Stock Price for the Last 5 years for "+str(tickerData.get_info()['longName']))
-    return st.write(fig)
-
-
-stock_trend_complete(tickerSymbol)
-import altair as alt
-#c = alt.Chart(df).mark_circle()
-
-#st.write("Dividends of "+str(tickerData.get_info()['longName']))
-df=tickerData.dividends.reset_index()
-
-
-df2=tickerData.get_recommendations().reset_index()
-
-df2['month'] = pd.DatetimeIndex(df2['Date']).month
-df2['year'] = pd.DatetimeIndex(df2['Date']).year
-
-df2['month']=df2['month'].map({1:'January','2':'February',3:'March',4:'April',5:'May',6:'June'})
-d4=pd.DataFrame(df2.groupby(['year','month','To Grade'])['Firm'].count())
-d4=d4.reset_index()
-
-d4.rename(columns={
-                          'To Grade':'verdict',
-                          'Firm':'count'}, 
-                 inplace=True)
-
-fig=px.bar(d4,x='month',y='count',color='verdict',animation_frame='year',template='plotly_dark',labels={'count':'Number of Analysts who think you should do this'},barmode='relative',text='count',title="Number of Analysts Recommendations by Recommendation Type in the Current Year ")
-fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
+    def monthly_stock_trend_complete(tickerSymbol):
+        d=pd.DataFrame()
+        d=d.append(yf.Ticker(tickerSymbol).history(interval='1d').reset_index())
+        fig = px.line(d, x="Date", y="Close",
+                          labels={'Close':'Closing Stock Price'}, 
+                          template='plotly_dark',
+                         color_discrete_sequence=[ "aqua"],
+                          title="Closing Stock Price for the Current Month for "+str(tickerData.get_info()['longName'])
+                         )
+        return st.plotly_chart(fig)
 
 
 
-
-st.plotly_chart(fig)
-st.write("Analyst Recommendations of "+str(tickerData.get_info()['longName']))
-st.write(tickerData.get_recommendations())
-
-st.write("Major Holders of "+str(tickerData.get_info()['longName']))
-
-st.write(tickerData.major_holders)
+    monthly_stock_trend_complete(tickerSymbol)
 
 
+    st.write("**Here's the complete Closing Price trend for this year: "+"**"+str(tickerData.get_info()['longName']))
 
-st.markdown("**"+"Related news"+"**")
-for (from_dt,to_dt) in zip(from_list,to_list):
-    all_articles = newsapi.get_everything(q=tickerSymbol,language='en',sort_by='relevancy', page_size=3,page=1,   from_param=from_dt,to=to_dt)
-    d=json_normalize(all_articles['articles'])
-    newdf=d[["url","source.name","title","content"]]
-       
-    e="""   dic=newdf.set_index(["source.name","title","content"])["url"].to_dict()
-        #print(dic)
-        for (k,v) in dic.items():
-            #print(str(k[0])+str(k[1][5:10]))
-            page = requests.get(v)
-            html = page.content
-            soup = BeautifulSoup(html, "lxml")
-            text = soup.get_text()
-            d2=soup.find_all("p")
-            #for a in d2:
-            newd[k]=re.sub(r'<.+?>',r'',str(d2)) """
 
-    st.write("***"+"1] "+newdf['title'].values[0]+"***")
-    st.write(newdf['content'].values[0]+"\n\n"+"You can find more about it here: "+newdf['url'].values[0]+"\n")
-    st.write("***"+"2] "+newdf['title'].values[1]+"***")
-    
-    st.write(newdf['content'].values[1]+"\n\n"+"You can find more about it here: "+newdf['url'].values[1]+"\n")
-    
-    st.write("***"+"3] "+newdf['title'].values[2]+"***")
-    st.write(str(newdf['content'].values[2])+"\n\n"+"You can find more about it here: "+str(newdf['url'].values[2])+"\n")
-    
+    def yearly_stock_trend_complete(tickerSymbol):
+        d=pd.DataFrame()
+        d=d.append(yf.Ticker(tickerSymbol).history(period='1y',interval='1d').reset_index())
+        d=d.reset_index()
+        d['months'] = pd.DatetimeIndex(d['Date']).month
+        d['years'] = pd.DatetimeIndex(d['Date']).year
+        d['months']=d['months'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
 
-#st.write(text_from_urls(new))
+        fig = px.line(d, x="Date", y="Close",
+                          labels={'Close':'Closing Stock Price'}, 
+                          template='plotly_dark',
+                         color_discrete_sequence=[ "aqua"],animation_frame=d.months,
+                          title="Closing Stock Price for the Current Year for "+str(tickerData.get_info()['longName'])
+                         )
+        return st.plotly_chart(fig)
 
-#get the historical prices for this ticker
-#tickerDf = tickerData.history(period='1d', start='2010-5-31', end='2020-5-31')
-# Open	High	Low	Close	Volume	Dividends	Stock Splits
+
+    yearly_stock_trend_complete(tickerSymbol)
+
+    st.write("\n\n**Here's the complete Closing Price trend for these  5 years: \n"+str(tickerData.get_info()['longName'])+"**")
+
+
+    def stock_trend_complete(tickerSymbol):
+        d=pd.DataFrame()
+        d=d.append(yf.Ticker(tickerSymbol).history(period='5y',interval='1d').reset_index())
+        fig = px.line(d, x="Date", y="Close",
+                          labels={'Close':'Closing Stock Price'}, 
+                          template='plotly_dark',
+                         color_discrete_sequence=[ "aqua"],
+                          title="Closing Stock Price for the Last 5 years for "+str(tickerData.get_info()['longName']))
+        return st.write(fig)
+
+
+    stock_trend_complete(tickerSymbol)
+    import altair as alt
+    #c = alt.Chart(df).mark_circle()
+
+    #st.write("Dividends of "+str(tickerData.get_info()['longName']))
+    df=tickerData.dividends.reset_index()
+
+
+    df2=tickerData.get_recommendations().reset_index()
+
+    df2['month'] = pd.DatetimeIndex(df2['Date']).month
+    df2['year'] = pd.DatetimeIndex(df2['Date']).year
+
+    df2['month']=df2['month'].map({1:'January','2':'February',3:'March',4:'April',5:'May',6:'June'})
+    d4=pd.DataFrame(df2.groupby(['year','month','To Grade'])['Firm'].count())
+    d4=d4.reset_index()
+
+    d4.rename(columns={
+                              'To Grade':'verdict',
+                              'Firm':'count'}, 
+                     inplace=True)
+
+    fig=px.bar(d4,x='month',y='count',color='verdict',animation_frame='year',template='plotly_dark',labels={'count':'Number of Analysts who think you should do this'},barmode='relative',text='count',title="Number of Analysts Recommendations by Recommendation Type in the Current Year ")
+    fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
+
+
+
+
+    st.plotly_chart(fig)
+    st.write("Analyst Recommendations of "+str(tickerData.get_info()['longName']))
+    st.write(tickerData.get_recommendations())
+
+    st.write("Major Holders of "+str(tickerData.get_info()['longName']))
+
+    st.write(tickerData.major_holders)
+
+
+
+    st.markdown("**"+"Related news"+"**")
+    for (from_dt,to_dt) in zip(from_list,to_list):
+        all_articles = newsapi.get_everything(q=tickerSymbol,language='en',sort_by='relevancy', page_size=3,page=1,   from_param=from_dt,to=to_dt)
+        d=json_normalize(all_articles['articles'])
+        newdf=d[["url","source.name","title","content"]]
+           
+        e="""   dic=newdf.set_index(["source.name","title","content"])["url"].to_dict()
+            #print(dic)
+            for (k,v) in dic.items():
+                #print(str(k[0])+str(k[1][5:10]))
+                page = requests.get(v)
+                html = page.content
+                soup = BeautifulSoup(html, "lxml")
+                text = soup.get_text()
+                d2=soup.find_all("p")
+                #for a in d2:
+                newd[k]=re.sub(r'<.+?>',r'',str(d2)) """
+
+        st.write("***"+"1] "+newdf['title'].values[0]+"***")
+        st.write(newdf['content'].values[0]+"\n\n"+"You can find more about it here: "+newdf['url'].values[0]+"\n")
+        st.write("***"+"2] "+newdf['title'].values[1]+"***")
+        
+        st.write(newdf['content'].values[1]+"\n\n"+"You can find more about it here: "+newdf['url'].values[1]+"\n")
+        
+        st.write("***"+"3] "+newdf['title'].values[2]+"***")
+        st.write(str(newdf['content'].values[2])+"\n\n"+"You can find more about it here: "+str(newdf['url'].values[2])+"\n")
+        
+
+    #st.write(text_from_urls(new))
+
+    #get the historical prices for this ticker
+    #tickerDf = tickerData.history(period='1d', start='2010-5-31', end='2020-5-31')
+    # Open	High	Low	Close	Volume	Dividends	Stock Splits
+else:
+    print("Enter the stock symbol")
+
 
 
 
