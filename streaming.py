@@ -125,7 +125,7 @@ def tick():
 tickerSymbol = str(tick())
 #get data on this ticker
 for (k,v) in stocks_dic.items():
-    if (tickerSymbol==k) or (re.compile(tickerSymbol.lower()).match(v.lower()):):
+    if (tickerSymbol==k) or (re.compile(tickerSymbol.lower()).match(v.lower())):
         tickerData = yf.Ticker(k)
         print(v)
         st.write("**"+"Current Stock Price of "+str(tickerData.get_info()['longName'])+" is: "+str(np.round(si.get_live_price(tickerSymbol),2))+"**")
@@ -214,9 +214,9 @@ for (k,v) in stocks_dic.items():
         fig.update_layout(autosize=True)
         fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
         fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
- 
+        fig.show()
 
-        st.plotly_chart(fig)
+        #st.plotly_chart(fig)
         
         st.write("Major Holders of "+str(tickerData.get_info()['longName']))
 
