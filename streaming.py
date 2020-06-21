@@ -124,7 +124,7 @@ def tick():
 
 tickerSymbol = str(tick())
 #get data on this ticker
-for (k,v) in stocks_dic:
+for (k,v) in stocks_dic.items():
     if (tickerSymbol==k) or (tickerSymbol==v):
         tickerData = yf.Ticker(tickerSymbol)
 
