@@ -15,7 +15,7 @@ import requests
 from bs4 import BeautifulSoup
 
 import numpy as np
-
+from fuzzywuzzy import fuzz
 
 
 
@@ -125,7 +125,7 @@ def tick():
 tickerSymbol = str(tick())
 #get data on this ticker
 for (k,v) in stocks_dic.items():
-    if (tickerSymbol==k) or (tickerSymbol==v):
+    if (tickerSymbol==k) or (fuzz.partial_ratio(tickerSymbol,v)>90):
         tickerData = yf.Ticker(tickerSymbol)
 
 

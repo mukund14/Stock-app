@@ -8,3 +8,5 @@ bs4==0.0.1
 lxml==4.5.1
 requests==2.23.0
 yahoo_fin==0.8.5
+fuzzywuzzy==0.18.0
+python-Levenshtein
