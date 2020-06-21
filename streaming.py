@@ -214,9 +214,8 @@ for (k,v) in stocks_dic.items():
         fig.update_layout(autosize=True)
         fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
         fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
-        fig.show()
-
-        #st.plotly_chart(fig)
+        
+        st.plotly_chart(fig)
         
         st.write("Major Holders of "+str(tickerData.get_info()['longName']))
 
