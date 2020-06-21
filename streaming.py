@@ -127,6 +127,7 @@ tickerSymbol = str(tick())
 for (k,v) in stocks_dic.items():
     if (tickerSymbol==k) or (fuzz.partial_ratio(tickerSymbol,v)>90):
         tickerData = yf.Ticker(k)
+        
         st.write("**"+"Current Stock Price of "+str(tickerData.get_info()['longName'])+" is: "+str(np.round(si.get_live_price(tickerSymbol),2))+"**")
         st.write("**"+"Here's the complete Closing Price trend for this month: "+"**"+str(tickerData.get_info()['longName']))
 
@@ -220,7 +221,7 @@ d4=pd.DataFrame(df2.groupby(['year','month','To Grade'])['Firm'].count())
 
         st.markdown("**"+"Related news"+"**")
         for (from_dt,to_dt) in zip(from_list,to_list):
-            all_articles = newsapi.get_everything(q=tickerData,language='en',sort_by='relevancy', page_size=3,page=1,   from_param=from_dt,to=to_dt)
+            all_articles = newsapi.get_everything(q=str(tickerData.get_info()['longName']),language='en',sort_by='relevancy', page_size=3,page=1,   from_param=from_dt,to=to_dt)
             d=json_normalize(all_articles['articles'])
             newdf=d[["url","source.name","title","content"]]
             st.write("***"+"1] "+newdf['title'].values[0]+"***")
