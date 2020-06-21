@@ -125,14 +125,9 @@ stocks_dic=us_stocks.set_index('Symbol')['Security Name'].to_dict()
 tickerSymbol = str(st.text_input("Enter stock symbol:", 'AAPL'))
 #get data on this ticker
 for (k,v) in stocks_dic.items():
-    st.write(type(v))
-    st.write(v)
-    st.write(type(k))
-    st.write(k)
-
-    if (tickerSymbol==k) or (re.compile(tickerSymbol.lower()).match(v.lower())):
+    if (tickerSymbol==k):
         tickerData = yf.Ticker(k)
-        print(v)
+        
         st.write("**"+"Current Stock Price of "+str(tickerData.get_info()['longName'])+" is: "+str(np.round(si.get_live_price(tickerSymbol),2))+"**")
         st.write("**"+"Here's the complete Closing Price trend for this month: "+"**"+str(tickerData.get_info()['longName']))
 
