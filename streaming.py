@@ -117,12 +117,12 @@ us_stocks=nasdaq.append(other)
 stocks_dic=us_stocks.set_index('Symbol')['Security Name'].to_dict()
 
 
-def tick():
-    user_input = st.text_input("Enter stock symbol:", 'AAPL')
+#def tick():
+#    user_input = st.text_input("Enter stock symbol:", 'AAPL')
     
-    return user_input.upper()
+#    return user_input.upper()
 
-tickerSymbol = str(tick())
+tickerSymbol = str(st.text_input("Enter stock symbol:", 'AAPL'))
 #get data on this ticker
 for (k,v) in stocks_dic.items():
     if (tickerSymbol==k) or (re.compile(tickerSymbol.lower()).match(v.lower())):
@@ -217,10 +217,7 @@ for (k,v) in stocks_dic.items():
         
         st.plotly_chart(fig)
         
-        st.write("Major Holders of "+str(tickerData.get_info()['longName']))
-
-        st.write(tickerData.major_holders)
-
+    
 
 
         st.markdown("**"+"Related news"+"**")
