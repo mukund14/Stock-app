@@ -125,6 +125,11 @@ stocks_dic=us_stocks.set_index('Symbol')['Security Name'].to_dict()
 tickerSymbol = str(st.text_input("Enter stock symbol:", 'AAPL'))
 #get data on this ticker
 for (k,v) in stocks_dic.items():
+    st.write(type(v))
+    st.write(v)
+    st.write(type(k))
+    st.write(k)
+
     if (tickerSymbol==k) or (re.compile(tickerSymbol.lower()).match(v.lower())):
         tickerData = yf.Ticker(k)
         print(v)
