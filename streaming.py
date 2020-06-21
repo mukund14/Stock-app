@@ -125,7 +125,7 @@ def tick():
 tickerSymbol = str(tick())
 #get data on this ticker
 for (k,v) in stocks_dic.items():
-    if (tickerSymbol==k) or (fuzz.partial_ratio(tickerSymbol,v)>90):
+    if (tickerSymbol==k) or (fuzz.partial_ratio(tickerSymbol,v)>80):
         tickerData = yf.Ticker(k)
         
         st.write("**"+"Current Stock Price of "+str(tickerData.get_info()['longName'])+" is: "+str(np.round(si.get_live_price(tickerSymbol),2))+"**")
@@ -204,11 +204,12 @@ for (k,v) in stocks_dic.items():
                                   'To Grade':'verdict',
                                   'Firm':'count'}, 
                          inplace=True)
-
-        fig=px.bar(d4,x='month',y='count',color='verdict',animation_frame='year',template='plotly_dark',labels={'count':'Number of Analysts who think you should do this'},barmode='relative',text='count',title="Number of Analysts Recommendations by Recommendation Type in the Current Year ")
+        moonth= d4['month'].value.tolist()
+        fig = go.Figure([go.Bar(data=d4,x='month', y='count')])
+        #fig=px.bar(d4,x='month',y='count',color='verdict',animation_frame='year',template='plotly_dark',labels={'count':'Number of Analysts who think you should do this'},barmode='relative',text='count',title="Number of Analysts Recommendations by Recommendation Type in the Current Year ")
         fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
         fig.update_yaxes(automargin=True)
-
+        fig.update_layout(autosize=True)
 
 
         st.plotly_chart(fig)
