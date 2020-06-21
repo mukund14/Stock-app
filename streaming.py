@@ -107,10 +107,10 @@ st.write("""
 # Stock shop
 """)
 
-nasdaq=pd.read_csv('C:/Users/mukun/python nbs/strm/strming/nasdaqlisted.txt',sep='|')
+nasdaq=pd.read_csv('nasdaqlisted.txt',sep='|')
 nasdaq.head(3)
 nasdaq=nasdaq[['Symbol','Security Name']]
-other=pd.read_csv('C:/Users/mukun/python nbs/strm/strming/otherlisted.txt',sep='|')
+other=pd.read_csv('otherlisted.txt',sep='|')
 other=other[['ACT Symbol','Security Name']]
 other=other.rename(columns={'ACT Symbol': 'Symbol'})
 us_stocks=nasdaq.append(other)
