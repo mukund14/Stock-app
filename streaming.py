@@ -127,7 +127,7 @@ tickerSymbol = str(tick())
 for (k,v) in stocks_dic.items():
     if (tickerSymbol==k) or (fuzz.partial_ratio(tickerSymbol,v)>80):
         tickerData = yf.Ticker(k)
-        
+        print(v)
         st.write("**"+"Current Stock Price of "+str(tickerData.get_info()['longName'])+" is: "+str(np.round(si.get_live_price(tickerSymbol),2))+"**")
         st.write("**"+"Here's the complete Closing Price trend for this month: "+"**"+str(tickerData.get_info()['longName']))
 
