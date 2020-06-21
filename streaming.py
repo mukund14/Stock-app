@@ -204,7 +204,7 @@ for (k,v) in stocks_dic.items():
                                   'To Grade':'verdict',
                                   'Firm':'count'}, 
                          inplace=True)
-        moonth= d4['month'].value.tolist()
+        moonth= d4['month'].values.tolist()
         fig = go.Figure([go.Bar(data=d4,x='month', y='count')])
         #fig=px.bar(d4,x='month',y='count',color='verdict',animation_frame='year',template='plotly_dark',labels={'count':'Number of Analysts who think you should do this'},barmode='relative',text='count',title="Number of Analysts Recommendations by Recommendation Type in the Current Year ")
         fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
