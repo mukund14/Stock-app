@@ -154,9 +154,9 @@ for (k,v) in stocks_dic.items():
             d=pd.DataFrame()
             d=d.append(yf.Ticker(tickerSymbol).history(period='1y',interval='1d').reset_index())
             d=d.reset_index()
-            d['months'] = pd.DatetimeIndex(d['Date']).month
+            d['month'] = pd.DatetimeIndex(d['Date']).month
             d['years'] = pd.DatetimeIndex(d['Date']).year
-            d['months']=d['months'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
+            d['month']=d['month'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
 
             fig = px.line(d, x="Date", y="Close",
                               labels={'Close':'Closing Stock Price'}, 
@@ -196,7 +196,7 @@ for (k,v) in stocks_dic.items():
         df2['month'] = pd.DatetimeIndex(df2['Date']).month
         df2['year'] = pd.DatetimeIndex(df2['Date']).year
 
-        df2['months']=df2['months'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
+        df2['month']=df2['month'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
         d4=pd.DataFrame(df2.groupby(['year','month','To Grade'])['Firm'].count())
         d4=d4.reset_index()
 
