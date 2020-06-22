@@ -157,7 +157,7 @@ for (k,v) in stocks_dic.items():
             d['month'] = pd.DatetimeIndex(d['Date']).month
             d['years'] = pd.DatetimeIndex(d['Date']).year
             d['month']=d['month'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
-            d=d.sort_values(by='years',ascending=False,inplace=True)
+            #d=d.sort_values(by='years',ascending=False,inplace=True)
             fig = px.line(d, x="Date", y="Close",
                               labels={'Close':'Closing Stock Price'}, 
                               template='plotly_dark',
