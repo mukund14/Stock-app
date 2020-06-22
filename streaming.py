@@ -199,16 +199,16 @@ for (k,v) in stocks_dic.items():
         df2['month']=df2['month'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
         d4=pd.DataFrame(df2.groupby(['year','month','To Grade'])['Firm'].count())
         d4=d4.reset_index()
-
+d
         d4.rename(columns={
                                   'To Grade':'verdict',
                                   'Firm':'count'}, 
                          inplace=True)
         moonth= d4['month'].values.tolist()
         import plotly.graph_objects as go
-
+        d3=d4[d4['verdict'].isin(['Buy','Hold','Outperform','Sell'])]
         #fig = go.Figure([go.Bar(data=d4,x='month', y='count')])
-        fig=px.bar(d4,x='month',y='count',color='verdict',animation_frame='year',height=400,range_y=[0,40],template='plotly_dark',labels={'count':'Number of Analysts opinions'},barmode='relative',text='count',title="Number of Analysts Recommendations by Recommendation Type in the Current Year ")
+        fig=px.bar(d3,x='month',y='count',color='verdict',animation_frame='year',height=400,range_y=[0,40],template='plotly_dark',labels={'count':'Number of Analysts opinions'},barmode='relative',text='count',title="Analysts Recommendations in the Current Year ")
         fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
         fig.update_yaxes(automargin=True)
         fig.update_layout(autosize=True)
