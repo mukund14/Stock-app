@@ -208,7 +208,7 @@ for (k,v) in stocks_dic.items():
         import plotly.graph_objects as go
 
         #fig = go.Figure([go.Bar(data=d4,x='month', y='count')])
-        fig=px.bar(d4,x='month',y='count',color='verdict',animation_frame='year',template='plotly_dark',labels={'count':'Number of Analysts who think you should do this'},barmode='relative',text='count',title="Number of Analysts Recommendations by Recommendation Type in the Current Year ")
+        fig=px.bar(d4,x='month',y='count',color='verdict',animation_frame='year',range_y=[0,100],template='plotly_dark',labels={'count':'Number of Analysts who think you should do this'},barmode='relative',text='count',title="Number of Analysts Recommendations by Recommendation Type in the Current Year ")
         fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
         fig.update_yaxes(automargin=True)
         fig.update_layout(autosize=True)
