@@ -199,11 +199,7 @@ for (k,v) in stocks_dic.items():
         df2['month']=df2['month'].map({1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',10:'October',11:'November',12:'December'})
         d4=pd.DataFrame(df2.groupby(['year','month','To Grade'])['Firm'].count())
         d4=d4.reset_index()
-d
-        d4.rename(columns={
-                                  'To Grade':'verdict',
-                                  'Firm':'count'}, 
-                         inplace=True)
+        d4.rename(columns={'To Grade':'verdict','Firm':'count'},inplace=True)
         moonth= d4['month'].values.tolist()
         import plotly.graph_objects as go
         d3=d4[d4['verdict'].isin(['Buy','Hold','Outperform','Sell'])]
