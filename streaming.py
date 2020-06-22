@@ -204,7 +204,7 @@ for (k,v) in stocks_dic.items():
         import plotly.graph_objects as go
         d3=d4[d4['verdict'].isin(['Buy','Hold','Outperform','Sell'])]
         #fig = go.Figure([go.Bar(data=d4,x='month', y='count')])
-        fig=px.bar(d3,x='month',y='count',color='verdict',animation_frame='year',height=400,range_y=[0,40],template='plotly_dark',labels={'count':'Number of Analysts opinions'},barmode='relative',text='count',title="Analysts Recommendations in the Current Year ")
+        fig=px.bar(d3,x='month',y='count',color='verdict',animation_frame='year',height=400,range_y=[0,30],template='plotly_dark',labels={'count':'Number of Analysts opinions'},barmode='relative',text='count',title="Analysts Recommendations in the Current Year ")
         fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000
         fig.update_yaxes(automargin=True)
         fig.update_layout(autosize=True)
