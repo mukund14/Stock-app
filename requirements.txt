@@ -6,7 +6,7 @@ newsapi-python
 numpy==1.18.0
 bs4==0.0.1
 lxml==4.9
-requests==2.23.0
+requests==2.31.0
 yahoo_fin==0.8.5
 fuzzywuzzy==0.18.0
 python-Levenshtein
